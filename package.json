@@ -1,0 +1,24 @@
+{
+  "name": "emission-development",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server/index.js",
+    "test": "jest"
+  },
+  "author": "Vilma Kangas",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.1",
+    "jest": "^24.0.0",
+    "koa-router": "^7.4.0",
+    "supertest": "^3.4.2"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
