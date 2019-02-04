@@ -13,12 +13,13 @@
   "license": "ISC",
   "dependencies": {
     "@koa/cors": "^2.2.3",
-    "koa": "^2.7.0"
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0"
   },
   "devDependencies": {
     "eslint": "^5.12.1",
     "jest": "^24.0.0",
-    "koa-router": "^7.4.0",
     "nodemon": "^1.18.9",
     "supertest": "^3.4.2"
   },

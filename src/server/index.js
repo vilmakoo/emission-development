@@ -1,11 +1,15 @@
 const Koa = require('koa');
 const Router = require('koa-router');
 const fileReader = require('../utils/fileReader');
-const cors = require('@koa/cors')
+const cors = require('@koa/cors');
+const koaStatic = require('koa-static')('build');
 
 const router = new Router();
 const app = new Koa();
-app.use(cors())
+
+app.use(cors());
+app.use(koaStatic);
+
 const PORT = process.env.PORT || 3000;
 
 router.get('/', async ctx => {
@@ -14,7 +18,7 @@ router.get('/', async ctx => {
     };
 });
 
-router.get('/emissions/:country', async ctx => {
+router.get('/api/emissions/:country', async ctx => {
     const emissionsPerCountry = fileReader.emissionsPerCountry;
     ctx.body = {
         data: emissionsPerCountry(ctx.params.country)
