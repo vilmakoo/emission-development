@@ -21,7 +21,7 @@ describe('routes: emissions/:country', () => {
         expect(response.status).toEqual(200);
         expect(response.type).toEqual('application/json');
         expect(response.body.data.country).toBe('finland');
-        expect(response.body.data.emissions[0]).toEqual({'emissions': '"15104.373"', 'year': '"1960"'});
+        expect(response.body.data.emissions[0]).toEqual({ 'emissions': '"15104.373"', 'year': '"1960"' });
         expect(response.body.data.emissions.length).toEqual(60);
     });
 });

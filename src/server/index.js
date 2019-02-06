@@ -20,9 +20,7 @@ router.get('/', async ctx => {
 
 router.get('/api/emissions/:country', async ctx => {
     const emissionsPerCountry = fileReader.emissionsPerCountry;
-    ctx.body = {
-        data: emissionsPerCountry(ctx.params.country)
-    };
+    ctx.body = emissionsPerCountry(ctx.params.country);
 });
 
 // router.get('/population/:country', async ctx => {
