@@ -12,24 +12,16 @@ app.use(koaStatic);
 
 const PORT = process.env.PORT || 3000;
 
-router.get('/', async ctx => {
+router.get('/api/', async ctx => {
     ctx.body = {
         data: 'Sending some JSON'
     };
 });
 
-router.get('/api/emissions/:country', async ctx => {
-    const emissionsPerCountry = fileReader.emissionsPerCountry;
-    ctx.body = emissionsPerCountry(ctx.params.country);
+router.get('/api/emissions/', async ctx => {
+    const emissions = fileReader.countrysEmissions;
+    ctx.body = emissions(ctx.query.country, ctx.query.percapita);
 });
-
-// router.get('/population/:country', async ctx => {
-//     ctx.body = {
-//         data: {
-//             country: ctx.params.country,
-//         }
-//     };
-// });
 
 app.use(router.routes());
 

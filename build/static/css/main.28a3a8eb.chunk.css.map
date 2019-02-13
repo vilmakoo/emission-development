@@ -1,0 +1,1 @@
+{"version":3,"sources":["/home/local/vikangas/työnhaku/reaktor 2019/emission-development-frontend/src/styles/search-bar.scss"],"names":[],"mappings":"AAQA,2CACE,cAAe","file":"main.28a3a8eb.chunk.css","sourcesContent":[".search-title {\n  margin-top: 7px;\n}\n\n.search-input {\n  margin-top: 7px;\n}\n\n.search-button {\n  margin-top: 7px;\n}"]}
