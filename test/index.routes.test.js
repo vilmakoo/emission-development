@@ -47,3 +47,6 @@ describe('routes: emissions/:country', () => {
         expect(response.body.emissions.length).toEqual(0);
     });
 });
+
+// TODO: mahdollisuus vertailla maita
+// TODO: data ajan tasalla
