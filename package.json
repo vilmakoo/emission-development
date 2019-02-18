@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server/index.js",
-    "watch": "nodemon src/server/index.js",
+    "start": "node src/index.js",
+    "watch": "nodemon src/index.js",
     "test": "jest",
     "lint": "eslint ."
   },
@@ -13,9 +13,11 @@
   "license": "ISC",
   "dependencies": {
     "@koa/cors": "^2.2.3",
+    "dotenv": "^6.2.0",
     "koa": "^2.7.0",
     "koa-router": "^7.4.0",
-    "koa-static": "^5.0.0"
+    "koa-static": "^5.0.0",
+    "mongoose": "^5.4.12"
   },
   "devDependencies": {
     "eslint": "^5.12.1",
