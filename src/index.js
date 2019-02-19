@@ -27,14 +27,18 @@ router.get('/api/', async ctx => {
     };
 });
 
-router.get('/api/emissions/highincome', async ctx => {
-    const averages = await databaseUtils.averages();
-    ctx.body = averages;
-});
-
 router.get('/api/emissions/:country', async ctx => {
-    const emissions = await databaseUtils.searchCountryByName(ctx.params.country, ctx.query.percapita);
-    ctx.body = emissions;
+    const country = await databaseUtils.searchCountryByName(ctx.params.country, ctx.query.percapita);
+    let highIncomeAverages;
+
+    if (ctx.query.compare === 'true') {
+        highIncomeAverages = await databaseUtils.searchAverages(ctx.query.percapita);
+    }
+
+    ctx.body = {
+        country,
+        highIncomeAverages
+    };
 });
 
 app.use(router.routes());

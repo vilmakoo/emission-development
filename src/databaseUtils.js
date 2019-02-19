@@ -60,25 +60,25 @@ const searchCountryByName = async (searchTerm, searchPopulations) => {
 
     if (!country) {
         return {
-            country: 'NOT FOUND',
+            name: 'NOT FOUND',
             data: []
         };
     }
 
     return {
-        country: country.name,
+        name: country.name,
         data: country.data.map((e, index) => {
             return {
                 year: e.year,
                 emissions: e.emissions,
-                population: (searchPopulations && e.population) ? e.population : null,
-                perCapita: (searchPopulations && e.population && e.emissions) ? e.emissions / e.population : null
+                population: (searchPopulations === 'true' && e.population) ? e.population : null,
+                perCapita: (searchPopulations === 'true' && e.population && e.emissions) ? e.emissions / e.population : null
             };
-        })
+        }),
     };
 };
 
-const averages = async () => {
+const searchAverages = async (searchPopulations) => {
     const countries = await Country.find({ income_group: 'High income' });
 
     const years = countries[0].data.map(d => d.year);
@@ -87,18 +87,25 @@ const averages = async () => {
         return values.reduce((a,b) => a + b, 0) / values.length;
     };
 
-    const averages = years.map(y => {
+    let averages = years.map(y => {
         return {
             year: y,
             emissionsAverage: average(countries.map(c => c.data).map(d => d.filter(d => d.year === y)).map(d => d.map(d => d.emissions)).filter(e => e).map(e => e[0])),
-            populationAverage: average(countries.map(c => c.data).map(d => d.filter(d => d.year === y)).map(d => d.map(d => d.population)).filter(p => p).map(p => p[0]))
+            populationAverage: searchPopulations ? average(countries.map(c => c.data).map(d => d.filter(d => d.year === y)).map(d => d.map(d => d.population)).filter(p => p).map(p => p[0])) : null,
+        };
+    });
+
+    averages = averages.map(a => {
+        return {
+            ...a,
+            perCapitaAverage: searchPopulations ? a.emissionsAverage / a.populationAverage : null
         };
     });
 
     return {
-        countries: countries.map(c => c.country),
+        countriesCount: countries.length,
         averages
     };
 };
 
-module.exports = { searchCountryByName, averages, updateDatabase };
+module.exports = { searchCountryByName, updateDatabase, searchAverages };

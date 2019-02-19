@@ -26,10 +26,10 @@ describe('routes: /api/emissions/:country', () => {
         const response = await request(server).get(`/api/emissions/${country}`);
         expect(response.status).toEqual(200);
         expect(response.type).toEqual('application/json');
-        expect(response.body.country).toBe('Finland');
-        expect(response.body.data[0].emissions).toBe(15104.373);
-        expect(response.body.data.map(d => d.emissions).length).toEqual(60);
-        expect(response.body.data.populations).toEqual(undefined);
+        expect(response.body.country.name).toBe('Finland');
+        expect(response.body.country.data[0].emissions).toBe(15104.373);
+        expect(response.body.country.data.map(d => d.emissions).length).toEqual(60);
+        expect(response.body.country.data.populations).toEqual(undefined);
     });
 
     test('should give country\'s populations if percapita is set to true in the request', async () => {
@@ -37,9 +37,9 @@ describe('routes: /api/emissions/:country', () => {
         const response = await request(server).get(`/api/emissions/${country}?percapita=true`);
         expect(response.status).toEqual(200);
         expect(response.type).toEqual('application/json');
-        expect(response.body.country).toBe('Finland');
-        expect(response.body.data.map(d => d.population).length).toBe(60);
-        expect(response.body.data.map(d => d.population)[0]).toBe(4429634);
+        expect(response.body.country.name).toBe('Finland');
+        expect(response.body.country.data.map(d => d.population).length).toBe(60);
+        expect(response.body.country.data.map(d => d.population)[0]).toBe(4429634);
     });
 
     test('should give \'NOT FOUND\' if nothing is found', async () => {
@@ -47,21 +47,19 @@ describe('routes: /api/emissions/:country', () => {
         const response = await request(server).get(`/api/emissions/${country}`);
         expect(response.status).toEqual(200);
         expect(response.type).toEqual('application/json');
-        expect(response.body.country).toBe('NOT FOUND');
-        expect(response.body.data.map(d => d.emissions)).toEqual([]);
-        expect(response.body.data.map(d => d.populations)).toEqual([]);
-        expect(response.body.data.map(d => d.emissions).length).toEqual(0);
+        expect(response.body.country.name).toBe('NOT FOUND');
+        expect(response.body.country.data.map(d => d.emissions)).toEqual([]);
+        expect(response.body.country.data.map(d => d.populations)).toEqual([]);
+        expect(response.body.country.data.map(d => d.emissions).length).toEqual(0);
     });
-});
 
-describe('routes: /api/emissions/highincome', () => {
     test('should give average emissions of countrys with high income', async () => {
-        const response = await request(server).get('/api/emissions/highincome');
+        const response = await request(server).get('/api/emissions/emissions?percapita=true&compare=true');
         expect(response.status).toEqual(200);
         expect(response.type).toEqual('application/json');
-        expect(response.body.countries.length).toBe(80);
-        expect(response.body.averages.length).toBe(60);
-        expect(response.body.averages[0]).toEqual({ year: 1960, emissionsAverage: 64339.21098749999, populationAverage: 9623624.0375 });
+        expect(response.body.highIncomeAverages.countriesCount).toBe(80);
+        expect(response.body.highIncomeAverages.averages.length).toBe(60);
+        expect(response.body.highIncomeAverages.averages[0]).toEqual({ year: 1960, emissionsAverage: 64339.21098749999, populationAverage: 9623624.0375, perCapitaAverage: 0.006685549096347893 });
     });
 });
 
