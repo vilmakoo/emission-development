@@ -14,10 +14,8 @@ app.use(koaStatic);
 const PORT = process.env.PORT || 3000;
 
 router.get('/api/update_database', async ctx => {
-    databaseUtils.updateDatabase();
-    ctx.body = {
-        data: 'Database updated!'
-    };
+    const result = await databaseUtils.updateDatabase();
+    ctx.body = result;
 
 });
 
@@ -25,6 +23,11 @@ router.get('/api/', async ctx => {
     ctx.body = {
         data: 'Sending some JSON'
     };
+});
+
+router.get('/api/emissions/top_emitters', async ctx => {
+    const countries = await databaseUtils.topEmitters();
+    ctx.body = countries;
 });
 
 router.get('/api/emissions/:country', async ctx => {

@@ -17,7 +17,8 @@ const countrySchema = new mongoose.Schema({
     data: [{
         year: Number,
         emissions: Number,
-        population: Number
+        population: Number,
+        perCapita: Number
     }],
 });
 

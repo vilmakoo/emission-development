@@ -59,13 +59,23 @@ describe('routes: /api/emissions/:country', () => {
         expect(response.type).toEqual('application/json');
         expect(response.body.highIncomeAverages.countriesCount).toBe(80);
         expect(response.body.highIncomeAverages.averages.length).toBe(60);
-        expect(response.body.highIncomeAverages.averages[0]).toEqual({ year: 1960, emissionsAverage: 64339.21098749999, populationAverage: 9623624.0375, perCapitaAverage: 0.006685549096347893 });
+        expect(response.body.highIncomeAverages.averages[0]).toEqual({ year: 1960, emissionsAverage: 64339.21098749999, populationAverage: 9623624.0375, perCapitaAverage: 0.004847923257891564 });
+    });
+});
+
+describe('routes: /api/emissions/top_emitters', () => {
+    test('should give countries with largest emissions in 2018', async () => {
+        const response = await request(server).get('/api/emissions/top_emitters');
+        expect(response.status).toEqual(200);
+        expect(response.body.length).toBe(10);
+        expect(response.body).toEqual(['Qatar', 'Curacao', 'Trinidad and Tobago', 'Kuwait', 'Bahrain', 'United Arab Emirates', 'Brunei Darussalam', 'Saudi Arabia', 'Sint Maarten (Dutch part)', 'Luxembourg']);
     });
 });
 
 
-// TODO: mahdollisuus vertailla maita? ainakin haettua maata suurvaltojen keskiarvoon
-// TODO: data ajan tasalla
-// TODO: mitkä maat ovat päästöiltään suurimpia väkilukuun suhteutettuna? tästä vaik lista
 
-// TODO: "Olisi mielenkiintoista tietää, miten tilanne on muuttunut kotimaassani _omana elinaikanani_."
+
+// TODO: info-kenttä, jossa ohjeistus sovelluksen käyttöön, ja sovelluksen kaunistamista
+// TODO: filtteröi maata etsiessä data annetun aikavälin perusteella
+
+// TODO: arkkitehtuuriraportti
