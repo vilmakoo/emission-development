@@ -71,11 +71,3 @@ describe('routes: /api/emissions/top_emitters', () => {
         expect(response.body).toEqual(['Qatar', 'Curacao', 'Trinidad and Tobago', 'Kuwait', 'Bahrain', 'United Arab Emirates', 'Brunei Darussalam', 'Saudi Arabia', 'Sint Maarten (Dutch part)', 'Luxembourg']);
     });
 });
-
-
-
-
-// TODO: info-kenttä, jossa ohjeistus sovelluksen käyttöön, ja sovelluksen kaunistamista
-// TODO: filtteröi maata etsiessä data annetun aikavälin perusteella
-
-// TODO: arkkitehtuuriraportti
